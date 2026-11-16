@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Tela 2: Lançamento de Venda / Fiado — GIL CMB{% endblock %}
+{% block content %}
+<section aria-labelledby="titulo-venda">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 id="titulo-venda" class="h3 fw-bold mb-0 text-white">Nova Venda a Prazo (Fiado)</h1>
+        <a href="{{ url_for('tela1_painel') }}" class="btn btn-outline-light btn-acessivel mb-0">&larr; Voltar ao Início</a>
+    </div>
+
+    <div class="cartao-gil">
+        <p class="text-light mb-3">Selecione a cliente e o produto. O sistema confere o estoque e calcula o valor total automaticamente.</p>
+        <div id="alerta_validacao_cliente" role="alert" class="alerta-multimodal-erro mb-3 d-none">
+            <span id="texto_validacao_cliente"></span>
+        </div>
+
+        <form method="POST" action="{{ url_for('tela2_nova_venda') }}">
+            <div class="mb-3">
+                <label for="id_cliente" class="label-persistente">1. Cliente (Nome, Apelido e Saldo Atual) *</label>
+                <select id="id_cliente" name="id_cliente" class="form-select form-select-acessivel" required>
+                    <option value="">-- Toque aqui para escolher a cliente --</option>
+                    {% for c in clientes %}
+                    <option value="{{ c.id_cliente }}">
+                        {{ c.nome_completo }} {% if c.apelido_referencia %}({{ c.apelido_referencia }}){% endif %}
+                        — Saldo atual: R$ {{ "%.2f"|format(c.saldo_devedor_atual)|replace(".", ",") }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_produto" class="label-persistente">2. Produto / Mercadoria (Preço e Estoque Disponível) *</label>
+                <select id="id_produto" name="id_produto" class="form-select form-select-acessivel" required>
+                    <option value="" data-preco="0" data-estoque="0" data-nome="">-- Toque aqui para escolher o produto --</option>
+                    {% for p in produtos %}
+                    <option value="{{ p.id_produto }}" data-preco="{{ p.preco_unitario }}" data-estoque="{{ p.quantidade_estoque }}" data-nome="{{ p.nome_item }}">
+                        {{ p.nome_item }} — Preço: R$ {{ "%.2f"|format(p.preco_unitario)|replace(".", ",") }} | Estoque: {{ p.quantidade_estoque }} un.
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-sm-6">
+                    <label for="quantidade" class="label-persistente">3. Quantidade (Unidades) *</label>
+                    <input type="number" id="quantidade" name="quantidade" class="form-control form-control-acessivel" min="1" value="2" required>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label for="data_vencimento" class="label-persistente">4. Data de Vencimento *</label>
+                    <input type="date" id="data_vencimento" name="data_vencimento" class="form-control form-control-acessivel" value="{{ vencimento_padrao }}" required>
+                </div>
+            </div>
+
+            <input type="hidden" id="tipo_registro" name="tipo_registro" value="fiado">
+
+            <div id="visor_valor_total" class="visor-total mb-4" aria-live="polite">
+                Valor Total Calculado: R$ 180,00
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn_confirmar_lancamento" class="btn btn-gil-verde btn-acessivel fs-4 py-3">
+                    [✓] Confirmar Lançamento
+                </button>
+                <a href="{{ url_for('tela1_painel') }}" class="btn btn-outline-light btn-acessivel">
+                    Cancelar e Voltar ao Início
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/calculo_balcao.js') }}"></script>
+{% endblock %}

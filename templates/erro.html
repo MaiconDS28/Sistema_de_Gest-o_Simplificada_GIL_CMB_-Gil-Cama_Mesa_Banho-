@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Aviso — GIL CMB{% endblock %}
+{% block content %}
+<div class="cartao-gil text-center py-5">
+    <h1 class="h3 fw-bold text-warning mb-3">[!] Aviso do Sistema ({{ codigo }})</h1>
+    <p class="fs-5 text-light mb-4">{{ mensagem }}</p>
+    <a href="{{ url_for('tela1_painel') }}" class="btn btn-gil-verde btn-acessivel">Voltar ao Painel Inicial</a>
+</div>
+{% endblock %}

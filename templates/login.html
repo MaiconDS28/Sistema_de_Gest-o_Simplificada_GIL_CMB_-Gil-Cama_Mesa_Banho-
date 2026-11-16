@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Acesso Restrito — GIL CMB{% endblock %}
+{% block content %}
+<div class="cartao-gil mx-auto" style="max-width: 500px;">
+    <div class="text-center mb-3">
+        <img src="{{ url_for('static', filename='img/logo_gil_cmb.png') }}"
+             alt="Logo GIL CMB" style="width: 90px; height: 90px; border-radius: 10px; border: 2px solid #4ade80;">
+    </div>
+    <h1 class="h3 fw-bold mb-2 text-white text-center">Acesso ao Balcão — GIL CMB</h1>
+    <p class="text-light mb-4 text-center">
+        Entre com sua conta autorizada para acessar o caderno digital de vendas a prazo (fiado), encomendas e estoque.
+    </p>
+    <form method="POST" action="{{ url_for('login') }}" novalidate>
+        <div class="mb-3">
+            <label for="login_email" class="label-persistente">E-mail de Acesso *</label>
+            <input type="email" id="login_email" name="login_email" class="form-control form-control-acessivel"
+                   placeholder="Ex.: gil@gilcmb.com.br" required>
+        </div>
+        <div class="mb-4">
+            <label for="senha" class="label-persistente">Senha de Segurança *</label>
+            <input type="password" id="senha" name="senha" class="form-control form-control-acessivel"
+                   placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit" class="btn btn-gil-verde btn-acessivel w-100 fs-5">
+            Entrar no Sistema
+        </button>
+    </form>
+</div>
+{% endblock %}

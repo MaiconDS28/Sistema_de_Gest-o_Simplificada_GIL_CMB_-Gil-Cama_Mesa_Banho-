@@ -1,0 +1,151 @@
+/* ==========================================================================
+   ESTILOS DE ACESSIBILIDADE E IDENTIDADE VISUAL - GIL CMB (RNF04 & ODS 8)
+   - Cor Base Oficial da Loja: Verde GIL CMB (#007f35) e Grafite Escuro (#212121)
+   - Fonte base mínima: 16px (1rem) sem serifa
+   - Contraste elevado >= 4.5:1 (WCAG AA)
+   - Área de toque mínima: 48x48px (>= 44x44px exigidos) com espaçamento >= 8px
+   - Foco visível destacado para navegação por teclado (Tab)
+   ========================================================================== */
+
+:root {
+    --cor-verde-gil: #007f35;          /* Verde oficial da logo GIL CMB */
+    --cor-verde-gil-escuro: #005f27;
+    --cor-verde-gil-claro: #4ade80;
+    --cor-fundo-pagina: #181a19;       /* Grafite escuro da borda da logo */
+    --cor-bloco-cartao: #212623;       /* Chumbo escuro para cartões */
+    --cor-texto-principal: #ffffff;
+    --cor-borda: #3d4f46;
+    --cor-foco: #4ade80;
+}
+
+html, body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: var(--cor-fundo-pagina);
+    color: var(--cor-texto-principal);
+}
+
+.cabecalho-gil {
+    background-color: var(--cor-verde-gil);
+    border-bottom: 3px solid var(--cor-verde-gil-claro);
+}
+
+.logo-gil-header {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    background-color: var(--cor-verde-gil);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--cor-foco) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.35) !important;
+}
+
+.btn-acessivel,
+.form-control-acessivel,
+.form-select-acessivel {
+    min-height: 50px;
+    min-width: 48px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 0.65rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-gil-verde {
+    background-color: var(--cor-verde-gil);
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-gil-verde:hover,
+.btn-gil-verde:focus {
+    background-color: var(--cor-verde-gil-escuro);
+    border-color: var(--cor-verde-gil-claro);
+    color: #ffffff;
+}
+
+.form-control-acessivel,
+.form-select-acessivel {
+    background-color: #121413;
+    color: #ffffff;
+    border: 2px solid var(--cor-borda);
+    font-weight: 500;
+}
+
+.form-control-acessivel:focus,
+.form-select-acessivel:focus {
+    background-color: #121413;
+    color: #ffffff;
+    border-color: var(--cor-foco);
+}
+
+.cartao-gil {
+    background-color: var(--cor-bloco-cartao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.label-persistente {
+    display: block;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 0.35rem;
+}
+
+.alerta-multimodal-sucesso {
+    background-color: #064e3b;
+    border: 2px solid #4ade80;
+    color: #ecfdf5;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 0.6rem;
+}
+
+.alerta-multimodal-erro {
+    background-color: #7f1d1d;
+    border: 2px solid #f87171;
+    color: #fef2f2;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 0.6rem;
+}
+
+.selo-status {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 0.4rem;
+}
+
+.selo-quitado { background-color: #007f35; color: #ffffff; border: 2px solid #4ade80; }
+.selo-parcial { background-color: #1e3a8a; color: #eff6ff; border: 2px solid #60a5fa; }
+.selo-pendente { background-color: #7f1d1d; color: #fef2f2; border: 2px solid #f87171; }
+
+.visor-total {
+    background-color: #121413;
+    border: 2px solid var(--cor-verde-gil-claro);
+    border-radius: 0.6rem;
+    padding: 1rem;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--cor-verde-gil-claro);
+    text-align: center;
+}

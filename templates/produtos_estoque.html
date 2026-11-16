@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Produtos e Estoque — GIL CMB{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 fw-bold text-white mb-0">Produtos e Controle de Estoque</h1>
+    <a href="{{ url_for('tela1_painel') }}" class="btn btn-outline-light btn-acessivel mb-0">&larr; Voltar ao Início</a>
+</div>
+<div class="cartao-gil">
+    {% for p in produtos %}
+    <div class="p-3 mb-2 rounded d-flex justify-content-between align-items-center" style="background:#121413;border:1px solid #3d4f46;">
+        <div>
+            <strong class="fs-5">{{ p.nome_item }}</strong> ({{ p.categoria|upper }}) — R$ {{ "%.2f"|format(p.preco_unitario)|replace(".", ",") }}
+        </div>
+        <span class="selo-status {% if p.quantidade_estoque <= p.estoque_minimo %}selo-pendente{% else %}selo-quitado{% endif %}">
+            Estoque: {{ p.quantidade_estoque }} un.
+        </span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

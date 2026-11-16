@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GIL CMB — Gestão de Balcão{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/acessibilidade.css') }}" rel="stylesheet">
+</head>
+<body>
+    <header class="cabecalho-gil py-3 mb-4">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3" style="max-width: 780px;">
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ url_for('tela1_painel') }}">
+                    <img src="{{ url_for('static', filename='img/logo_gil_cmb.png') }}"
+                         alt="Logotipo Oficial GIL CMB — Cama, Mesa e Banho"
+                         class="logo-gil-header">
+                </a>
+                <div>
+                    <a href="{{ url_for('tela1_painel') }}" class="text-decoration-none text-white fw-bold fs-4">
+                        GIL CMB — Gestão de Balcão
+                    </a>
+                    <div class="small text-white fw-semibold">CAMA • MESA • BANHO | Controle Simplificado</div>
+                </div>
+            </div>
+            {% if session.get('usuario_id') %}
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white fs-6 py-2 px-3 border border-light">
+                    Usuária: {{ session.get('nome_usuario') }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-dark border-light btn-acessivel mb-0 d-inline-flex align-items-center">
+                    Sair
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="container pb-5" style="max-width: 780px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div role="alert" class="mb-4 {% if category == 'erro' %}alerta-multimodal-erro{% else %}alerta-multimodal-sucesso{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="text-center py-3 border-top border-secondary text-secondary small">
+        Sistema de Gestão Simplificada — GIL CMB (Cama, Mesa e Banho) | Alinhado ao ODS 8
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Tela 1: Painel Inicial de Balcão — GIL CMB{% endblock %}
+{% block content %}
+<section aria-labelledby="titulo-painel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 id="titulo-painel" class="h3 fw-bold mb-0 text-white">Painel Inicial de Balcão</h1>
+        <span class="badge bg-success border border-light text-white fw-bold px-3 py-2">Tela 1 — Menu Principal</span>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-6">
+            <div class="cartao-gil h-100" style="border: 2px solid #4ade80;">
+                <div class="fw-bold text-success mb-1" style="color: #4ade80 !important;">[R$] Total a Receber no Fiado</div>
+                <div class="display-6 fw-bold text-white mb-1">
+                    R$ {{ "%.2f"|format(total_a_receber)|replace(".", ",") }}
+                </div>
+                <div class="text-light">
+                    <strong>{{ clientes_pendentes }}</strong> clientes com saldo pendente ou parcial
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="cartao-gil h-100 border-warning" style="border-width: 2px;">
+                <div class="fw-bold text-warning mb-1">[!] Alerta de Estoque Baixo</div>
+                <div class="display-6 fw-bold text-white mb-1">{{ itens_estoque_baixo|length }} itens</div>
+                <div class="text-light small">
+                    {% if itens_estoque_baixo %}
+                        Repor:
+                        {% for item in itens_estoque_baixo[:2] %}
+                            {{ item.nome_item }} ({{ item.quantidade_estoque }} un.){% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        [✓] Estoque regular
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cartao-gil">
+        <h2 class="h5 fw-bold text-white mb-3">Escolha a operação de balcão:</h2>
+        <div class="d-grid gap-3">
+            <a href="{{ url_for('tela2_nova_venda') }}"
+               class="btn btn-gil-verde btn-acessivel fs-4 py-3 text-start d-flex justify-content-between align-items-center">
+                <span>[+] 1. Nova Venda / Fiado</span>
+                <span class="badge bg-light text-dark">Prioritário</span>
+            </a>
+            <a href="{{ url_for('tela3_clientes_saldos') }}"
+               class="btn btn-primary btn-acessivel fs-5 py-3 text-start d-flex justify-content-between align-items-center">
+                <span>[✓] 2. Clientes e Pagamentos</span>
+                <span class="badge bg-dark text-white">Consultar / Abater</span>
+            </a>
+            <a href="{{ url_for('produtos_estoque') }}"
+               class="btn btn-secondary btn-acessivel fs-5 py-3 text-start d-flex justify-content-between align-items-center">
+                <span>[#] 3. Produtos e Estoque</span>
+                <span class="badge bg-dark text-white">Catálogo</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
